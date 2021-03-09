@@ -10,6 +10,8 @@ router.post('/auth', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  console.log(req.body)
+
   const query = { email}
   //Check the user exists
   User.findOne(query, (err, user) => {
@@ -25,7 +27,7 @@ router.post('/auth', (req, res, next) => {
     if (!user) {
       return res.send({
         success: false,
-        message: 'Error, Account not found'
+        message: 'Error, Account not found'+req.body
       });
     }
 
@@ -58,8 +60,8 @@ router.post('/auth', (req, res, next) => {
 
         //Send the response back
         return res.send({
-          success: true,
-          message: 'You can login now',
+        //  success: true,
+        //  message: 'You can login now',
           user: returnUser,
           token
         });
@@ -77,6 +79,8 @@ router.post('/register', (req, res, next) => {
     type:req.body.type,
     password: req.body.password
   });
+
+  console.log(newUser);
   
 
   newUser.save((err, user) => {
@@ -84,7 +88,7 @@ router.post('/register', (req, res, next) => {
       console.log(err);
       return res.send({
         success: false,
-        message: 'Failed to save the user'
+        message: 'Failed to save the user'+err
       });
     }
     if (!user) {
@@ -94,8 +98,8 @@ router.post('/register', (req, res, next) => {
       });
     }
     res.send({
-      success: true,
-      message: 'User Saved',
+     // success: true,
+     // message: 'User Saved',
       user
     });
   });
