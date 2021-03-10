@@ -55,10 +55,11 @@ app.get('/', (req, res, next) => {
 
 
 const UserRoutes = require('./routes/users');
-
+const ExerciceRoutes = require('./routes/exercices');
 
 //Users Routes
 app.use('/users', UserRoutes);
+app.use('/exerecices',ExerciceRoutes);
 
 //Start the server jfdnjfjg
 app.listen(_PORT, () => {
