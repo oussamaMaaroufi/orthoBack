@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const router = express.Router();
-
 
 // Schema Definition
 const ExerciceSchema = mongoose.Schema({

@@ -1,10 +1,11 @@
-const router = express.Router();
 const express = require('express');
+const router = express.Router();
 const passport = require('passport');
 
 const Exercice = require('../models/Exercice');
 
 router.post('/add', (req, res, next) => {
+  console.log(req.body)
     let newExercice = new Exercice({
       name: req.body.name,
       category: req.body.category,
