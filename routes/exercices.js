@@ -39,7 +39,7 @@ router.post('/add', (req, res, next) => {
   
   //find , passport.authenticate('jwt', { session : false})
   
-  router.get('/listExercice' ,(req, res, next) => {
+  router.get('/list' ,(req, res, next) => {
     //const owner = req.body.owner;
     //console.log('test')
     Exercice.find((err, exercices)=>{
@@ -58,7 +58,7 @@ router.post('/add', (req, res, next) => {
   });
   
   // /getuser
-  router.post('/getExercice', (req, res, next) => {
+  router.post('/get', (req, res, next) => {
     let _id  = req.body.id;
     let query = {_id}
     console.log(query);
@@ -78,7 +78,7 @@ router.post('/add', (req, res, next) => {
     });
   });
   
-  router.post('/updateExercice', (req, res, next) => {
+  router.post('/update', (req, res, next) => {
     const ExerciceR =({
         name: req.body.name,
         category: req.body.category,
@@ -110,7 +110,7 @@ router.post('/add', (req, res, next) => {
       });
   });
   
-  router.post('/deleteExercice', (req, res, next) => {
+  router.post('/delete', (req, res, next) => {
     // console.log(req)
      let _id  = req.body._id;
      let query = {_id}
@@ -135,7 +135,7 @@ router.post('/add', (req, res, next) => {
        });
      });
 
-     router.post('/getExerciceById', (req, res, next) => {
+     router.post('/getById', (req, res, next) => {
         // console.log(req)
          const _id = req.body._id;
          const query = { _id }
