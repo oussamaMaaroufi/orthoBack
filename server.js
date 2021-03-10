@@ -59,7 +59,7 @@ const ExerciceRoutes = require('./routes/exercices');
 
 //Users Routes
 app.use('/users', UserRoutes);
-app.use('/exerecices',ExerciceRoutes);
+app.use('/exercices',ExerciceRoutes);
 
 //Start the server jfdnjfjg
 app.listen(_PORT, () => {
