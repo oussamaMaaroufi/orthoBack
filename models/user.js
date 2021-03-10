@@ -12,6 +12,8 @@ const UserSchema = mongoose.Schema({
   password: { type: String, required: true }
 });
 
+
+
 //Pre Save Hook. Used to hash the password
 UserSchema.pre('save', function(next) {
 
@@ -50,3 +52,4 @@ UserSchema.methods.isPasswordMatch = function(plainPassword, hashed, callback) {
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
+  
