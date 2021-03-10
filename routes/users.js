@@ -11,6 +11,8 @@ router.post('/auth', (req, res, next) => {
   const password = req.body.password;
 
   console.log(req.body)
+  console.log(req.body)
+  console.log(req.body)
 
   const query = { email}
   //Check the user exists
