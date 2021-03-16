@@ -8,7 +8,7 @@ const passport = require('passport');
 //Intiailzie app with express
 const app = express();
 
-const UserRoutes = require('./routes/users');
+
 
 
 //Database Connection
@@ -53,8 +53,14 @@ app.get('/', (req, res, next) => {
   res.send('I am alive')
 });
 
+
+const UserRoutes = require('./routes/users');
+const ExerciceRoutes = require('./routes/exercices');
+
 //Users Routes
 app.use('/users', UserRoutes);
+app.use('/exercices',ExerciceRoutes);
+
 //Start the server jfdnjfjg
 app.listen(_PORT, () => {
   console.log('Server Started');

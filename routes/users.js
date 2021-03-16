@@ -87,7 +87,7 @@ router.post('/register', (req, res, next) => {
 
   newUser.save((err, user) => {
     if (err) {
-      console.log(err);
+    //  console.log(err);
       return res.send({
         success: false,
         message: 'Failed to save the user'+err
@@ -140,7 +140,7 @@ router.post('/getuser', (req, res, next) => {
         message: 'Error while reteriving the user'
       });
     }
-    console.log(user);
+  //  console.log(user);
     return res.send({
       success: true,
       user
