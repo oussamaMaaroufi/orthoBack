@@ -81,8 +81,26 @@ router.post('/register', (req, res, next) => {
     type:req.body.type,
     password: req.body.password
   });
+  const email= req.body.email;
+  console.log(email);
 
-  console.log(newUser);
+  const query = {email}
+  //Check the user exists
+  User.findOne(query, (err, user) => {
+    //Error during exuting the query
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+    if (user) {
+      return res.send({
+        success: false,
+        message: 'Error, email used'
+      });
+    }
+  
   
 
   newUser.save((err, user) => {
@@ -105,6 +123,7 @@ router.post('/register', (req, res, next) => {
       user
     });
   });
+});
 });
 
 
