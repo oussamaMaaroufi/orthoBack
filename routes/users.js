@@ -73,19 +73,15 @@ router.post('/auth', (req, res, next) => {
 
 });
 
-//Registeration
+//Registeration patenit
 router.post('/register', (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
     type:req.body.type,
     password: req.body.password,
-    code: req.body.code
   });
   const email= req.body.email;
-  console.log(email);
-  console.log(newUser);
-
   const query = {email}
   //Check the user exists
   User.findOne(query, (err, user) => {
@@ -127,6 +123,96 @@ router.post('/register', (req, res, next) => {
   });
 });
 });
+
+
+
+
+
+//Registeration Ortho
+router.post('/registerOrtho', (req, res, next) => {
+  
+  const email= req.body.email;
+  const code= req.body.codeV;
+  console.log(email);
+ 
+
+  const query = {email}
+  const query1 = {code}
+  //Check the user exists
+  User.findOne(query1, (err1, user1) => {
+
+    if (err1) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+    if (!user1) {
+      return res.send({
+        success: false,
+        message: 'Error, code incorrect'
+      });
+    }
+
+
+  User.findOne(query, (err2, user2) => {
+    //Error during exuting the query
+    if (err2) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+    if (user2) {
+      return res.send({
+        success: false,
+        message: 'Error, email used'
+      });
+    }
+
+     newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      type:req.body.type,
+      password: req.body.password,
+      code: req.body.code,
+      idInv:user1.id
+    });
+  
+  
+
+  newUser.save((err, user) => {
+    if (err) {
+    //  console.log(err);
+      return res.send({
+        success: false,
+        message: 'Failed to save the user'+err
+      });
+    }
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'Error, Invalid user'
+      });
+    }
+    res.send({
+     // success: true,
+     // message: 'User Saved',
+      user
+    });
+  });
+});
+});
+});
+
+
+
+
+
+
+
+
+
 
 
 //find , passport.authenticate('jwt', { session : false})
