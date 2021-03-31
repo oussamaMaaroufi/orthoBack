@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js')
 const passport = require('passport');
+const { use } = require('passport');
 
 
 //Login
@@ -55,7 +56,8 @@ router.post('/auth', (req, res, next) => {
           name: user.name,
           email: user.email,
           type :user.type,
-          id: user._id
+          id: user._id,
+          code : user.code
         }
 
         //Send the response back
