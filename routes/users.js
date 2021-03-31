@@ -10,9 +10,7 @@ router.post('/auth', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  console.log(req.body)
-  console.log(req.body)
-  console.log(req.body)
+
 
   const query = { email}
   //Check the user exists
@@ -79,7 +77,8 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     type:req.body.type,
-    password: req.body.password
+    password: req.body.password,
+    code: req.body.code
   });
   const email= req.body.email;
   console.log(email);
