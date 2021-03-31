@@ -84,6 +84,7 @@ router.post('/register', (req, res, next) => {
   });
   const email= req.body.email;
   console.log(email);
+  console.log(newUser);
 
   const query = {email}
   //Check the user exists
