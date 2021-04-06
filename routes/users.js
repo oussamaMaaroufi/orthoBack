@@ -57,7 +57,9 @@ router.post('/auth', (req, res, next) => {
           email: user.email,
           type :user.type,
           id: user._id,
-          code : user.code
+          code : user.code,
+          phone : user.phone,
+          score : user.score
         }
 
         //Send the response back
