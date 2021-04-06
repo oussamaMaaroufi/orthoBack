@@ -10,5 +10,5 @@ const DoneSchema = mongoose.Schema({
     iteration:String
   });
 
-  const Done = mongoose.model('Todo',DoneSchema);
+  const Done = mongoose.model('Done',DoneSchema);
   module.exports= Done;
