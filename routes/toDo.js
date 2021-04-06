@@ -20,7 +20,7 @@ router.post('/add', (req, res, next) => {
           message: 'Failed to save the todo'
         });
       }
-      if (!exercice) {
+      if (!todo) {
         return res.send({
           success: false,
           message: 'Error, Invalid todo'
@@ -80,7 +80,7 @@ router.post('/add', (req, res, next) => {
 
   router.post('/delete', (req, res, next) => {
     // console.log(req)
-     let _id  = req.body._id;
+     let _id  = req.body.id;
      let query = {_id}
      console.log(query)
      //Check the user exists
