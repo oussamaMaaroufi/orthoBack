@@ -1,39 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-
-const Exercice = require('../models/Exercice');
+const ToDo = require('../models/toDo');
 
 router.post('/add', (req, res, next) => {
   console.log(req.body)
-    let newExercice = new Exercice({
-      name: req.body.name,
-      category: req.body.category,
-      type:req.body.type,
-      niveau: req.body.niveau,
-      score:req.body.score
-
+    let newToDo = new ToDo({
+        idUser: req.body.idUser,
+        idExercice: req.body.idExercice,
+        AvgScore:req.body.AvgScore,
     });
     
   
-    newExercice.save((err, exercice) => {
+    newToDo.save((err, todo) => {
       if (err) {
       //  console.log(err);
         return res.send({
           success: false,
-          message: 'Failed to save the exercice'
+          message: 'Failed to save the todo'
         });
       }
       if (!exercice) {
         return res.send({
           success: false,
-          message: 'Error, Invalid exercice'
+          message: 'Error, Invalid todo'
         });
       }
       res.send({
         success: true,
-        message: 'exercice Saved',
-        exercice
+        message: 'todo Saved',
+        todo
       });
     });
   });
@@ -44,17 +40,17 @@ router.post('/add', (req, res, next) => {
   router.get('/list' ,(req, res, next) => {
     //const owner = req.body.owner;
     //console.log('test')
-    Exercice.find((err, exercices)=>{
+    ToDo.find((err, todo)=>{
       if (err) {
         return res.send({
           success: false,
-          message: 'Error while reteriving the exercice'
+          message: 'Error while reteriving the todo'
         });
       }
   
       return res.send({
        // success: true,
-        exercices
+        todo
       });
     });
   });
@@ -64,67 +60,36 @@ router.post('/add', (req, res, next) => {
     let _id  = req.body.id;
     let query = {_id}
     console.log(query);
-    Exercice.findById( query ,(err, exercice)=>{
+    ToDo.findById( query ,(err, todo)=>{
       if (err) {
         return res.send({
           success: false,
-          message: 'Error while reteriving the exercice'
+          message: 'Error while reteriving the todo'
         });
       }
     //  console.log(exercice);
       return res.send({
         success: true,
-        exercice
+        todo
       // user
       });
     });
   });
-  
-  router.post('/update', (req, res, next) => {
-    const ExerciceR =({
-        name: req.body.name,
-        category: req.body.category,
-        type:req.body.type,
-        niveau: req.body.niveau,
-        score:req.body.score
-  
-      });
-      const IdUser= req.body.IdUser;
-      const query = {id}
 
-      Exercice.updateOne(query,ExerciceR,err => {
-          if (err){
-            return res.send({
-                success: false,
-                message: err
-              });
-          }
-      })
-    if(!ExerciceR){
-        return res.send({
-            success: false,
-            message: "!exercice",
-          });
-    }
-    return res.send({
-        success: true,
-        message: "!exercice is updated",
-        Exercice : ExerciceR
-      });
-  });
-  
+
+
   router.post('/delete', (req, res, next) => {
     // console.log(req)
      let _id  = req.body._id;
      let query = {_id}
      console.log(query)
      //Check the user exists
-     Exercice.findByIdAndRemove(query, (err, exercice) => {
+     ToDo.findByIdAndRemove(query, (err, todo) => {
        //Error during exuting the query
        if (err) {
          return res.send({
            success: false,
-           message: 'Error, please try again'+query._id 
+           message: 'Error, please try again'
          });
        }else{
          
@@ -132,11 +97,64 @@ router.post('/add', (req, res, next) => {
            return res.send({
              success: true,
              message: 'Delete is success',
-             exercice
+             todo
            });
        }
        });
      });
+
+
+
+
+
+  
+  router.post('/update', (req, res, next) => {
+    const ExerciceR =({
+        _id  : req.body.id,
+        idUser: req.body.idUser,
+        idExercice: req.body.idExercice,
+        AvgScore:req.body.AvgScore,
+  
+      });
+      const _id= req.body.id;
+      const query = {_id}
+
+      Exercice.updateOne(query,todoR,err => {
+          if (err){
+            return res.send({
+                success: false,
+                message: err
+              });
+          }
+      })
+      ToDo.findOne(query, (err, todo1) => {
+        //Error during exuting the query
+        if (err) {
+          return res.send({
+            success: false,
+            message: 'Error, please try again'
+          });
+        }
+    
+        //No User match the search condition
+        if (!todo1) {
+          return res.send({
+            success: false,
+            message: 'Error, todo not found'
+          });
+        }
+        return res.send({
+          success: true,
+          todo : todo1
+        // user
+        });
+    
+        });
+   
+   
+  });
+  
+  
 
      router.post('/getById', (req, res, next) => {
         // console.log(req)
@@ -144,20 +162,20 @@ router.post('/add', (req, res, next) => {
          const query = { _id }
          console.log(query)
          //Check the user exists
-         Exercice.findById(query, (err, exercice) => {
+         ToDo.findById(query, (err, todo) => {
            //Error during exuting the query
            if (err) {
              return res.send({
                success: false,
-               message: 'Error, please try again'+query
+               message: 'Error, please try again'
              });
            }
        
            //No User match the search condition
-           if (!exercice) {
+           if (!todo) {
              return res.send({
                success: false,
-               message: 'Error, Account not found '+query.IdUser
+               message: 'Error, todo not found '
              });
            }else{
             // console.log(animal)
@@ -165,7 +183,7 @@ router.post('/add', (req, res, next) => {
                return res.send({
                  success: true,
                message: 'success',
-               Exercice : exercice
+               todo : todo
                });
            }
            });

@@ -2,38 +2,38 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const Exercice = require('../models/Exercice');
+const Done = require('../models/done');
 
 router.post('/add', (req, res, next) => {
   console.log(req.body)
-    let newExercice = new Exercice({
-      name: req.body.name,
-      category: req.body.category,
-      type:req.body.type,
-      niveau: req.body.niveau,
-      score:req.body.score
-
+    let newDone = new Done({
+        idUser: req.body.idUser,
+        idExercice: req.body.idExercice,
+        exerciceName:req.body.exerciceName,
+        idToDo:req.body.idToDo,
+        score:req.body.AvgScore,
+        iteration:req.body.iteration
     });
     
   
-    newExercice.save((err, exercice) => {
+    newDone.save((err, done) => {
       if (err) {
       //  console.log(err);
         return res.send({
           success: false,
-          message: 'Failed to save the exercice'
+          message: 'Failed to save the done'
         });
       }
       if (!exercice) {
         return res.send({
           success: false,
-          message: 'Error, Invalid exercice'
+          message: 'Error, Invalid done'
         });
       }
       res.send({
         success: true,
-        message: 'exercice Saved',
-        exercice
+        message: 'done Saved',
+        done
       });
     });
   });
@@ -44,17 +44,17 @@ router.post('/add', (req, res, next) => {
   router.get('/list' ,(req, res, next) => {
     //const owner = req.body.owner;
     //console.log('test')
-    Exercice.find((err, exercices)=>{
+    Done.find((err, done)=>{
       if (err) {
         return res.send({
           success: false,
-          message: 'Error while reteriving the exercice'
+          message: 'Error while reteriving the done'
         });
       }
   
       return res.send({
        // success: true,
-        exercices
+       done
       });
     });
   });
@@ -64,35 +64,36 @@ router.post('/add', (req, res, next) => {
     let _id  = req.body.id;
     let query = {_id}
     console.log(query);
-    Exercice.findById( query ,(err, exercice)=>{
+    Done.findById( query ,(err, done)=>{
       if (err) {
         return res.send({
           success: false,
-          message: 'Error while reteriving the exercice'
+          message: 'Error while reteriving the done'
         });
       }
     //  console.log(exercice);
       return res.send({
         success: true,
-        exercice
+        done
       // user
       });
     });
   });
   
   router.post('/update', (req, res, next) => {
-    const ExerciceR =({
-        name: req.body.name,
-        category: req.body.category,
-        type:req.body.type,
-        niveau: req.body.niveau,
-        score:req.body.score
+    const doneR =({
+        idUser: req.body.idUser,
+        idExercice: req.body.idExercice,
+        idToDo:req.body.idToDo,
+        exerciceName:req.body.exerciceName,
+        score:req.body.AvgScore,
+        iteration:req.body.iteration
   
       });
-      const IdUser= req.body.IdUser;
-      const query = {id}
+      const _id= req.body.id;
+      const query = {_id}
 
-      Exercice.updateOne(query,ExerciceR,err => {
+      Done.updateOne(query,doneR,err => {
           if (err){
             return res.send({
                 success: false,
@@ -100,16 +101,16 @@ router.post('/add', (req, res, next) => {
               });
           }
       })
-    if(!ExerciceR){
+    if(!doneR){
         return res.send({
             success: false,
-            message: "!exercice",
+            message: "!done",
           });
     }
     return res.send({
         success: true,
-        message: "!exercice is updated",
-        Exercice : ExerciceR
+        message: "!done is updated",
+        done : doneR
       });
   });
   
@@ -119,7 +120,7 @@ router.post('/add', (req, res, next) => {
      let query = {_id}
      console.log(query)
      //Check the user exists
-     Exercice.findByIdAndRemove(query, (err, exercice) => {
+     Done.findByIdAndRemove(query, (err, done) => {
        //Error during exuting the query
        if (err) {
          return res.send({
@@ -132,7 +133,7 @@ router.post('/add', (req, res, next) => {
            return res.send({
              success: true,
              message: 'Delete is success',
-             exercice
+             done
            });
        }
        });
@@ -144,28 +145,27 @@ router.post('/add', (req, res, next) => {
          const query = { _id }
          console.log(query)
          //Check the user exists
-         Exercice.findById(query, (err, exercice) => {
+         Done.findById(query, (err, done) => {
            //Error during exuting the query
            if (err) {
              return res.send({
                success: false,
-               message: 'Error, please try again'+query
+               message: 'Error, please try again'
              });
            }
        
            //No User match the search condition
-           if (!exercice) {
+           if (!done) {
              return res.send({
                success: false,
                message: 'Error, Account not found '+query.IdUser
              });
            }else{
-            // console.log(animal)
                //Send the response back
                return res.send({
                  success: true,
                message: 'success',
-               Exercice : exercice
+               done : done
                });
            }
            });

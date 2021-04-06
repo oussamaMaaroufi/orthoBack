@@ -98,6 +98,7 @@ router.post('/register', (req, res, next) => {
         message: 'Error, email used'
       });
     }
+    
   
   
 
@@ -252,6 +253,99 @@ router.post('/getuser', (req, res, next) => {
       success: true,
       user
     // user
+    });
+  });
+});
+
+
+router.post('/update', (req, res, next) => {
+  let email  = req.body.email;
+  newUser = new User({
+    _id  : req.body.id,
+    name: req.body.name,
+    phone:req.body.phone,
+    score:req.body.score
+  
+  });
+  let query = {email}
+  console.log(query);
+  User.updateOne( query,newUser,(err, user)=>{
+    
+    if (err) {
+      console.log(err)
+      return res.send({
+        success: false,
+        message: 'Error while reteriving the user'
+      });
+    }
+
+  User.findOne(query, (err, user) => {
+    //Error during exuting the query
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+
+    //No User match the search condition
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'Error, Account not found'
+      });
+    }
+    return res.send({
+      success: true,
+      user
+    // user
+    });
+
+    });
+  });
+});
+
+router.post('/updateScore', (req, res, next) => {
+  let email  = req.body.email;
+  newUser = new User({
+    _id  : req.body.id,
+    score:req.body.score
+  
+  });
+  let query = {email}
+  console.log(query);
+  User.updateOne( query,newUser,(err, user)=>{
+    
+    if (err) {
+      console.log(err)
+      return res.send({
+        success: false,
+        message: 'Error while reteriving the user'
+      });
+    }
+
+  User.findOne(query, (err, user) => {
+    //Error during exuting the query
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+
+    //No User match the search condition
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'Error, Account not found'
+      });
+    }
+    return res.send({
+      success: true,
+      user
+    // user
+    });
+
     });
   });
 });

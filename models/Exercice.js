@@ -5,6 +5,7 @@ const ExerciceSchema = mongoose.Schema({
     name: String,
     category: String,
     type:String,
+    score:String,
     niveau:String
   });
 
