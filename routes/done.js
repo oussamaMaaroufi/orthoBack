@@ -11,7 +11,7 @@ router.post('/add', (req, res, next) => {
         idExercice: req.body.idExercice,
         exerciceName:req.body.exerciceName,
         idToDo:req.body.idToDo,
-        score:req.body.AvgScore,
+        score:req.body.score,
         iteration:req.body.iteration
     });
     
@@ -24,7 +24,7 @@ router.post('/add', (req, res, next) => {
           message: 'Failed to save the done'
         });
       }
-      if (!exercice) {
+      if (!done) {
         return res.send({
           success: false,
           message: 'Error, Invalid done'
@@ -86,7 +86,7 @@ router.post('/add', (req, res, next) => {
         idExercice: req.body.idExercice,
         idToDo:req.body.idToDo,
         exerciceName:req.body.exerciceName,
-        score:req.body.AvgScore,
+        score:req.body.score,
         iteration:req.body.iteration
   
       });
@@ -116,7 +116,7 @@ router.post('/add', (req, res, next) => {
   
   router.post('/delete', (req, res, next) => {
     // console.log(req)
-     let _id  = req.body._id;
+     let _id  = req.body.id;
      let query = {_id}
      console.log(query)
      //Check the user exists
@@ -141,7 +141,7 @@ router.post('/add', (req, res, next) => {
 
      router.post('/getById', (req, res, next) => {
         // console.log(req)
-         const _id = req.body._id;
+         const _id = req.body.id;
          const query = { _id }
          console.log(query)
          //Check the user exists
