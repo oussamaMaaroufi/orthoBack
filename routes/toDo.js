@@ -109,7 +109,7 @@ router.post('/add', (req, res, next) => {
 
   
   router.post('/update', (req, res, next) => {
-    const ExerciceR =({
+    const todoR =({
         _id  : req.body.id,
         idUser: req.body.idUser,
         idExercice: req.body.idExercice,
@@ -119,7 +119,7 @@ router.post('/add', (req, res, next) => {
       const _id= req.body.id;
       const query = {_id}
 
-      Exercice.updateOne(query,todoR,err => {
+      ToDo.updateOne(query,todoR,err => {
           if (err){
             return res.send({
                 success: false,
@@ -158,7 +158,7 @@ router.post('/add', (req, res, next) => {
 
      router.post('/getById', (req, res, next) => {
         // console.log(req)
-         const _id = req.body._id;
+         const _id = req.body.id;
          const query = { _id }
          console.log(query)
          //Check the user exists
