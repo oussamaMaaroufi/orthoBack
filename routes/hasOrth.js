@@ -9,6 +9,7 @@ router.post('/add', (req, res, next) => {
 
     const code= req.body.code;
     const query1 = {code}
+  //  console.log(req.body)
   //Check the user exists
   User.findOne(query1, (err1, user1) => {
 
@@ -187,5 +188,39 @@ router.post('/add', (req, res, next) => {
            }
            });
          });
+
+
+
+         router.post('/getByIdP', (req, res, next) => {
+            // console.log(req)
+             const idP = req.body.id;
+             const query = { idP }
+             console.log(query)
+             //Check the user exists
+             HasOrth.findOne(query, (err, hasOrth) => {
+               //Error during exuting the query
+               if (err) {
+                 return res.send({
+                   success: false,
+                 });
+               }
+           
+               //No User match the search condition
+               if (!hasOrth) {
+                 return res.send({
+                   success: false,
+                 });
+               }else{
+                // console.log(animal)
+                   //Send the response back
+                   return res.send({
+                     success: true,
+                   
+                   });
+               }
+               });
+             });
+
+
   module.exports = router;
   
