@@ -5,7 +5,7 @@ const HasOrthSchema = mongoose.Schema({
     nameP: String,
     idP: String,
     idOrtho:String,
-    valid:Boolean,
+    valid:String,
   });
 
   const HasOrth = mongoose.model('hasOrth',HasOrthSchema);
