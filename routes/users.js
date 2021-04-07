@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.js')
+const User = require('../models/user.js');
 const passport = require('passport');
 const { use } = require('passport');
 
@@ -59,7 +59,8 @@ router.post('/auth', (req, res, next) => {
           id: user._id,
           code : user.code,
           phone : user.phone,
-          score : user.score
+          score : user.score,
+          hasOrtho:user.hasOrtho
         }
 
         //Send the response back
@@ -82,6 +83,7 @@ router.post('/register', (req, res, next) => {
     email: req.body.email,
     type:req.body.type,
     password: req.body.password,
+    hasOrtho : false
   });
   const email= req.body.email;
   const query = {email}
@@ -312,6 +314,54 @@ router.post('/updateScore', (req, res, next) => {
   newUser = new User({
     _id  : req.body.id,
     score:req.body.score
+  
+  });
+  let query = {email}
+  console.log(query);
+  User.updateOne( query,newUser,(err, user)=>{
+    
+    if (err) {
+      console.log(err)
+      return res.send({
+        success: false,
+        message: 'Error while reteriving the user'
+      });
+    }
+
+  User.findOne(query, (err, user) => {
+    //Error during exuting the query
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+
+    //No User match the search condition
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'Error, Account not found'
+      });
+    }
+    return res.send({
+      success: true,
+      user
+    // user
+    });
+
+    });
+  });
+});
+
+
+
+
+router.post('/hasOrtho', (req, res, next) => {
+  let email  = req.body.email;
+  newUser = new User({
+    _id  : req.body.id,
+    hasOrtho:true
   
   });
   let query = {email}

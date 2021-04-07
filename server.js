@@ -56,14 +56,16 @@ app.get('/', (req, res, next) => {
 
 const UserRoutes = require('./routes/users');
 const ExerciceRoutes = require('./routes/exercices');
-const ToDoRoutes = require('./routes/toDo');
+const ToDoRoutes = require('./routes/toDo');  
 const DoneRoutes = require('./routes/done');
+const HasOrthRoutes = require('./routes/hasOrth');
 
 //Users Routes
 app.use('/users', UserRoutes);
 app.use('/exercices',ExerciceRoutes);
 app.use('/todo',ToDoRoutes);
 app.use('/done',DoneRoutes);
+app.use('/hasOrth',HasOrthRoutes);
 
 //Start the server jfdnjfjg
 app.listen(_PORT, () => {
