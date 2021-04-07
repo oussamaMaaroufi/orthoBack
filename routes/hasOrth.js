@@ -28,8 +28,8 @@ router.post('/add', (req, res, next) => {
 
   console.log(req.body)
     let newHasOrth = new HasOrth({
-        nameP: req.body.nameP,
-        idP: req.body.idP,
+        nameP: req.body.name,
+        idP: req.body.id,
         idOrtho:user1.id,
         valid: "false"
 
