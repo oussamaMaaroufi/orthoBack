@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
         nameP: req.body.nameP,
         idP: req.body.idP,
         idOrtho:user1.id,
-        valid: false
+        valid: "false"
 
     });
     
@@ -103,7 +103,7 @@ router.post('/add', (req, res, next) => {
   
   router.post('/update', (req, res, next) => {
     const hasOrthR =({
-        valid: true
+        valid: "true"
   
       });
       const _id= req.body.id
