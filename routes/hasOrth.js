@@ -181,9 +181,7 @@ router.post('/add', (req, res, next) => {
             // console.log(animal)
                //Send the response back
                return res.send({
-                 success: true,
-               message: 'success',
-               hasOrth:hasOrth
+                hasOrth
                });
            }
            });
