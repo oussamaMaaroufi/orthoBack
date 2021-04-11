@@ -9,7 +9,7 @@ router.post('/add', (req, res, next) => {
 
     const code= req.body.code;
     const query1 = {code}
-  //  console.log(req.body)
+  //   console.log(req.body)
   //Check the user exists
   User.findOne(query1, (err1, user1) => {
 
@@ -97,7 +97,7 @@ router.post('/add', (req, res, next) => {
       return res.send({
         success: true,
         hasOrth
-      // user
+      
       });
     });
   });
@@ -156,13 +156,13 @@ router.post('/add', (req, res, next) => {
        });
      });
 
-     router.post('/getById', (req, res, next) => {
+     router.post('/getByIdOrtho', (req, res, next) => {
         // console.log(req)
-         const _id = req.body._id;
-         const query = { _id }
+         const idOrtho = req.body.id;
+         const query = { idOrtho }
          console.log(query)
          //Check the user exists
-         HasOrth.findById(query, (err, hasOrth) => {
+         HasOrth.find(query, (err, hasOrth) => {
            //Error during exuting the query
            if (err) {
              return res.send({
@@ -183,7 +183,7 @@ router.post('/add', (req, res, next) => {
                return res.send({
                  success: true,
                message: 'success',
-               hasOrth
+               hasOrth:hasOrth
                });
            }
            });
