@@ -166,7 +166,7 @@ router.post('/add', (req, res, next) => {
      let query = {_id}
      console.log(query)
      //Check the user exists
-     HasOrth.findByIdAndRemove(query, (err, hasOrth) => {
+     HasOrth.findByIdAndDelete(query, (err, hasOrth) => {
        //Error during exuting the query
        if (err) {
          return res.send({
@@ -174,6 +174,35 @@ router.post('/add', (req, res, next) => {
            message: 'Error, please try again'+query._id 
          });
        }else{
+
+      newUser = new User({
+        _id  : req.body.idP,
+        hasOrtho : "false"
+      
+      });
+      let _id  = req.body.idP;
+      let query1 = {_id}
+      console.log(query1);
+      User.findOneAndUpdate( query1,newUser,(err, user)=>{
+    
+       if (err) {
+         console.log(err)
+        return res.send({
+          success: false,
+          user,
+          message: 'Error while reteriving the user'
+        });
+      }
+    
+
+      return res.send({
+        success: true,
+        message: "!HasOrth is updated",
+        hasOrth : hasOrth,
+        user
+      });
+
+    });
          
            //Send the response back
            return res.send({
