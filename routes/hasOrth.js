@@ -204,12 +204,7 @@ router.post('/add', (req, res, next) => {
 
     });
          
-           //Send the response back
-           return res.send({
-             success: true,
-             message: 'Delete is success',
-             hasOrth
-           });
+         
        }
        });
      });
