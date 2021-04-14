@@ -126,14 +126,14 @@ router.post('/add', (req, res, next) => {
     }else{
 
       newUser = new User({
-        _id  : req.body.id,
+        _id  : req.body.idP,
         hasOrtho : "true"
       
       });
-      let _id  = req.body.id;
-      let query = {_id}
-      console.log(query);
-      User.updateOne( query,newUser,(err, user)=>{
+      let _id  = req.body.idP;
+      let query1 = {_id}
+      console.log(query1);
+      User.findOneAndUpdate( query1,newUser,(err, user)=>{
     
        if (err) {
          console.log(err)
