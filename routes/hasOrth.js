@@ -103,22 +103,24 @@ router.post('/add', (req, res, next) => {
   });
   
   router.post('/update', (req, res, next) => {
+    console.log(req.body)
     const hasOrthR =({
+        _id : req.body._id,
         valid: "true"
   
       });
-      const _id= req.body.id
+      const _id= req.body._id
       const query = {_id}
 
-      HasOrth.updateOne(query,hasOrthR,err => {
+      HasOrth.findByIdAndUpdate(query,hasOrthR,(err,orth) => {
           if (err){
             return res.send({
                 success: false,
                 message: err
               });
           }
-      })
-    if(!hasOrthR){
+      
+    if(!orth){
         return res.send({
             success: false,
             message: "!HasOrth",
@@ -148,13 +150,14 @@ router.post('/add', (req, res, next) => {
       return res.send({
         success: true,
         message: "!HasOrth is updated",
-        hasOrth : hasOrthR
+        hasOrth : orth,
+        user
       });
 
     });
 
     }
-    
+  });
   });
   
   router.post('/delete', (req, res, next) => {
