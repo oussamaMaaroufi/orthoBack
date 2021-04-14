@@ -123,12 +123,38 @@ router.post('/add', (req, res, next) => {
             success: false,
             message: "!HasOrth",
           });
-    }
-    return res.send({
+    }else{
+
+      newUser = new User({
+        _id  : req.body.id,
+        hasOrtho : "true"
+      
+      });
+      let _id  = req.body.id;
+      let query = {_id}
+      console.log(query);
+      User.updateOne( query,newUser,(err, user)=>{
+    
+       if (err) {
+         console.log(err)
+        return res.send({
+          success: false,
+          user,
+          message: 'Error while reteriving the user'
+        });
+      }
+    
+
+      return res.send({
         success: true,
         message: "!HasOrth is updated",
         hasOrth : hasOrthR
       });
+
+    });
+
+    }
+    
   });
   
   router.post('/delete', (req, res, next) => {
@@ -161,13 +187,12 @@ router.post('/add', (req, res, next) => {
          const idOrtho = req.body.id;
          const query = { idOrtho }
          console.log(query)
-         //Check the user exists
          HasOrth.find(query, (err, hasOrth) => {
            //Error during exuting the query
            if (err) {
              return res.send({
                success: false,
-               message: 'Error, please try again'+query
+               message: 'Error, please try again'
              });
            }
        
@@ -175,11 +200,9 @@ router.post('/add', (req, res, next) => {
            if (!hasOrth) {
              return res.send({
                success: false,
-               message: 'Error, Account not found '+query.IdUser
+               message: 'Error, Account not found '
              });
            }else{
-            // console.log(animal)
-               //Send the response back
                return res.send({
                 hasOrth
                });
