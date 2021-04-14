@@ -162,7 +162,7 @@ router.post('/add', (req, res, next) => {
   
   router.post('/delete', (req, res, next) => {
     // console.log(req)
-     let _id  = req.body.id;
+     let _id  = req.body._id;
      let query = {_id}
      console.log(query)
      //Check the user exists
