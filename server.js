@@ -20,7 +20,7 @@ const _PORT = process.env.PORT;
 const mongoURI = process.env.DATABASE;
 
 // Create mongo connection
-const conn = mongoose.createConnection(mongoURI,{ useNewUrlParser: true , useUnifiedTopology: true ,useFindAndModify: true});
+const conn = mongoose.createConnection(mongoURI,{ useNewUrlParser: true , useUnifiedTopology: true });
 let gfs;
 
 

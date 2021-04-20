@@ -295,8 +295,7 @@ router.post('/getByIdP', (req, res, next) => {
           // console.log(animal)
              //Send the response back
              return res.send({
-               hasOrth,
-               success: true,
+               hasOrth
              
              });
          }
