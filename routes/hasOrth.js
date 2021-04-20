@@ -235,11 +235,11 @@ router.post('/add', (req, res, next) => {
                });
            }
            });
-         });
+  });
 
 
 
-         router.post('/getByIdP', (req, res, next) => {
+router.post('/getByIdP', (req, res, next) => {
             // console.log(req)
              const idP = req.body.id;
              const query = { idP }
@@ -267,7 +267,41 @@ router.post('/add', (req, res, next) => {
                    });
                }
                });
+    });
+
+
+    router.post('/getPatient', (req, res, next) => {
+      // console.log(req)
+      // console.log(req)
+
+       const idOrtho = req.body.idOrtho;
+       const query = { idOrtho,"valid" :"true" }
+       console.log(query)
+       //Check the user exists
+       HasOrth.find(query, (err, hasOrth) => {
+         //Error during exuting the query
+         if (err) {
+           return res.send({
+             success: false,
+           });
+         }
+     
+         //No User match the search condition
+         if (!hasOrth) {
+           return res.send({
+             success: false,
+           });
+         }else{
+          // console.log(animal)
+             //Send the response back
+             return res.send({
+               hasOrth,
+               success: true,
+             
              });
+         }
+         });
+});
 
 
   module.exports = router;
