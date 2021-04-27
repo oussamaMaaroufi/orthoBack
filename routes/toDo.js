@@ -188,5 +188,28 @@ router.post('/add', (req, res, next) => {
            }
            });
          });
+
+         router.post('/getByIdUser', (req, res, next) => {
+          let idUser  = req.body.idUser;
+          let query = {idUser}
+          console.log(query);
+          ToDo.find( query ,(err, todo)=>{
+            if (err) {
+              return res.send({
+                success: false,
+                message: 'Error while reteriving the todo'
+              });
+            }
+          //  console.log(exercice);
+            return res.send({
+              success: true,
+              todo
+            // user
+            });
+          });
+        });
+
+
+
   module.exports = router;
   
