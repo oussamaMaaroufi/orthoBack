@@ -170,5 +170,37 @@ router.post('/add', (req, res, next) => {
            }
            });
          });
+
+         router.post('/getByIdP', (req, res, next) => {
+          // console.log(req)
+           const idUser = req.body.idUser;
+           const query = { idUser }
+           console.log(query)
+           //Check the user exists
+           Done.find(query, (err, done) => {
+             //Error during exuting the query
+             if (err) {
+               return res.send({
+                 success: false,
+                 message: 'Error, please try again'
+               });
+             }
+         
+             //No User match the search condition
+             if (!done) {
+               return res.send({
+                 success: false,
+                 message: 'Error, Account not found '+query.IdUser
+               });
+             }else{
+                 //Send the response back
+                 return res.send({
+                   success: true,
+                 message: 'success',
+                 done : done
+                 });
+             }
+             });
+           });
   module.exports = router;
   
