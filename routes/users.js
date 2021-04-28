@@ -214,12 +214,6 @@ router.post('/registerOrtho', (req, res, next) => {
 
 
 
-
-
-
-
-
-
 //find , passport.authenticate('jwt', { session : false})
 
 router.get('/list' ,(req, res, next) => {
@@ -401,6 +395,82 @@ router.post('/hasOrtho', (req, res, next) => {
     });
   });
 });
+
+
+
+
+
+
+router.post('/updatePwd', (req, res, next) => {
+  let email  = req.body.email;
+  const password = req.body.name;
+  newUser = new User({
+    _id  : req.body.id,
+    password: req.body.password,
+    
+  
+  });
+  let query = {email}
+  console.log(query);
+  
+   User.findOne(query, (err, user) => {
+    //Error during exuting the query
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error, please try again'
+      });
+    }
+
+    //No User match the search condition
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'Error, Account not found'
+      });
+    }
+
+    user.isPasswordMatch(password, user.password, (err, isMatch) => {
+
+      //Invalid password
+      if (!isMatch) {
+        return res.send({
+          success: false,
+          message: 'Error, Invalid Password'
+        });
+      }
+
+     User.updateOne( query,newUser,(err, user)=>{
+    
+      if (err) {
+        console.log(err)
+        return res.send({
+          success: false,
+          message: 'Error while reteriving the user'
+        });
+      }
+
+
+
+    return res.send({
+      success: true,
+      user
+    // user
+    });
+  });
+
+  });
+
+    });
+  
+});
+
+
+
+
+
+
+
 
 
 module.exports = router;
