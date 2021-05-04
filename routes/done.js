@@ -202,5 +202,27 @@ router.post('/add', (req, res, next) => {
              }
              });
            });
+
+           router.post('/getscore', (req, res, next) => {
+            //let _id  = req.body.id;
+            // let query = {_id}
+            let idUser= req.body.idUser;
+            let idExercice= req.body.idExercice;
+            let query = {idUser,idExercice}
+           
+            console.log(query);
+            Done.find( query ,(err, done)=>{
+              if (err) {
+                return res.send({
+                  success: false,
+                  message: 'Error while reteriving the done score'
+                });
+              } 
+              return res.send({
+                success: true,
+                done 
+              });
+            });
+          });
   module.exports = router;
   

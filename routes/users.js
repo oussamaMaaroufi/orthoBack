@@ -405,7 +405,7 @@ router.post('/updatePwd', (req, res, next) => {
   let email  = req.body.email;
   const password = req.body.name;
   newUser = new User({
-    _id  : req.body.id,
+    _id  : req.body._id,
     password: req.body.password,
     
   
@@ -431,6 +431,7 @@ router.post('/updatePwd', (req, res, next) => {
     }
 
     user.isPasswordMatch(password, user.password, (err, isMatch) => {
+      console.log(isMatch);
 
       //Invalid password
       if (!isMatch) {
@@ -439,8 +440,9 @@ router.post('/updatePwd', (req, res, next) => {
           message: 'Error, Invalid Password'
         });
       }
+      console.log(newUser)
 
-     User.updateOne( query,newUser,(err, user)=>{
+     User.updateOne(query, newUser,(err, user)=>{
     
       if (err) {
         console.log(err)
