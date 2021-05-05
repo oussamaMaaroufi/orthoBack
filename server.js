@@ -59,6 +59,7 @@ const ExerciceRoutes = require('./routes/exercices');
 const ToDoRoutes = require('./routes/toDo');  
 const DoneRoutes = require('./routes/done');
 const HasOrthRoutes = require('./routes/hasOrth');
+const StutterRoutes = require('./routes/stutter');
 
 //Users Routes
 app.use('/users', UserRoutes);
@@ -66,6 +67,7 @@ app.use('/exercices',ExerciceRoutes);
 app.use('/todo',ToDoRoutes);
 app.use('/done',DoneRoutes);
 app.use('/hasOrth',HasOrthRoutes);
+app.use('/stutter',StutterRoutes);
 
 //Start the server jfdnjfjg
 app.listen(_PORT, () => {
