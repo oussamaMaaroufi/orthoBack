@@ -11,6 +11,26 @@ router.post('/add', (req, res, next) => {
         AvgScore:req.body.AvgScore,
         idOrtho : req.body.idOrtho,
     });
+
+    const  idUser = req.body.idUser;
+    const idExercice = req.body.idExercice;
+  const query = {idUser , idExercice}
+
+
+    ToDo.findOne(query, (err, todoR) => {
+      //Error during exuting the query
+      if (err) {
+        return res.send({
+          success: false,
+          message: 'Error, please try again'
+        });
+      }
+      if (todoR) {
+        return res.send({
+          success: false,
+          message: 'exercise already affected '
+        });
+      }
     
   
     newToDo.save((err, todo) => {
@@ -33,6 +53,8 @@ router.post('/add', (req, res, next) => {
         todo
       });
     });
+
+  });
   });
   
   
