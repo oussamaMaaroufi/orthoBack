@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ToDoSchema = mongoose.Schema({
     idUser: String,
     idExercice: String,
+    idOrtho :String,
     AvgScore:String,
   });
 

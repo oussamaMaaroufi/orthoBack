@@ -9,6 +9,7 @@ router.post('/add', (req, res, next) => {
         idUser: req.body.idUser,
         idExercice: req.body.idExercice,
         AvgScore:req.body.AvgScore,
+        idOrtho : req.body.idOrtho,
     });
     
   
@@ -114,6 +115,7 @@ router.post('/add', (req, res, next) => {
         idUser: req.body.idUser,
         idExercice: req.body.idExercice,
         AvgScore:req.body.AvgScore,
+        idOrtho :req.body.idOrtho,
   
       });
       const _id= req.body.id;
@@ -192,6 +194,25 @@ router.post('/add', (req, res, next) => {
          router.post('/getByIdUser', (req, res, next) => {
           let idUser  = req.body.idUser;
           let query = {idUser}
+          console.log(query);
+          ToDo.find( query ,(err, todo)=>{
+            if (err) {
+              return res.send({
+                success: false,
+                message: 'Error while reteriving the todo'
+              });
+            }
+          //  console.log(exercice);
+            return res.send({
+              success: true,
+              todo
+            // user
+            });
+          });
+        });
+        router.post('/getByIdOrtho', (req, res, next) => {
+          let idOrtho  = req.body.idOrtho;
+          let query = {idOrtho}
           console.log(query);
           ToDo.find( query ,(err, todo)=>{
             if (err) {
