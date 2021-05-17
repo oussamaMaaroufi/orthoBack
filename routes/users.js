@@ -5,6 +5,8 @@ const User = require('../models/user.js');
 const passport = require('passport');
 const { use } = require('passport');
 
+const bcrypt = require('bcryptjs');
+
 
 //Login
 router.post('/auth', (req, res, next) => {
@@ -403,10 +405,17 @@ router.post('/hasOrtho', (req, res, next) => {
 
 router.post('/updatePwd', (req, res, next) => {
   let email  = req.body.email;
-  const password = req.body.name;
+  const password = req.body.password;
+  const newPwd = req.body.name;
   newUser = new User({
     _id  : req.body._id,
     password: req.body.password,
+    
+  
+  });
+  newUser1 = new User({
+    _id  : req.body._id,
+    password: req.body.name,
     
   
   });
@@ -430,7 +439,7 @@ router.post('/updatePwd', (req, res, next) => {
       });
     }
 
-    user.isPasswordMatch(password, user.password, (err, isMatch) => {
+    user.isPasswordMatch(password, user.password,async (err, isMatch) => {
       console.log(isMatch);
 
       //Invalid password
@@ -440,15 +449,27 @@ router.post('/updatePwd', (req, res, next) => {
           message: 'Error, Invalid Password'
         });
       }
-      console.log(newUser)
 
-     User.updateOne(query, newUser,(err, user)=>{
+      
+
+      user.password = newPwd;
+      console.log(user)
+
+
+      const salt = await bcrypt.genSalt(10);
+    // now we set user password to hashed password
+    user.password = await bcrypt.hash(user.password, salt);
+    
+    console.log(user)
+
+     User.updateOne(query, user,(err, users)=>{
     
       if (err) {
         console.log(err)
         return res.send({
           success: false,
-          message: 'Error while reteriving the user'
+          message: 'Error while reteriving the user',
+          users
         });
       }
 
@@ -456,7 +477,7 @@ router.post('/updatePwd', (req, res, next) => {
 
     return res.send({
       success: true,
-      user
+      users
     // user
     });
   });
