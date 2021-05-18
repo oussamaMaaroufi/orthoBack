@@ -42,8 +42,8 @@ router.post('/stutter', (req, res, next) => {
     //const owner = req.body.owner;
     //console.log('test')
     console.log("iduser = " + req.query.idUser);
-    Stutter.findOne({idUser:req.query.idUser},(err, obj)=>{
-      console.log("obj =", obj);
+    Stutter.find({idUser:req.query.idUser},(err, obj)=>{
+   //   console.log("obj =", obj);
       if (err || obj==null) {
         console.log("creating");
         Stutter.create({idUser:req.query.idUser, progress:'1'}, function(){
@@ -53,9 +53,9 @@ router.post('/stutter', (req, res, next) => {
         })
         return;
       }
-      console.log("found and sending : " + obj.progress);
+      console.log("found and sending : " + obj[obj.length-1].progress);
       return res.send({
-       level:obj.progress
+       level:obj[obj.length-1].progress
       });
     });
   });

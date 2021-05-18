@@ -462,14 +462,14 @@ router.post('/updatePwd', (req, res, next) => {
     
     console.log(user)
 
-     User.updateOne(query, user,(err, users)=>{
+     User.updateOne(query, user,(err, user)=>{
     
       if (err) {
         console.log(err)
         return res.send({
           success: false,
           message: 'Error while reteriving the user',
-          users
+          
         });
       }
 
@@ -477,7 +477,7 @@ router.post('/updatePwd', (req, res, next) => {
 
     return res.send({
       success: true,
-      users
+      user
     // user
     });
   });
