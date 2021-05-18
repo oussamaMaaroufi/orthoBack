@@ -303,5 +303,65 @@ router.post('/getByIdP', (req, res, next) => {
 });
 
 
+
+router.post('/updateName', (req, res, next) => {
+  console.log(req.body)
+  const hasOrthR =({
+      idP : req.body.idP,
+      nameP :req.body.nameP,
+
+    });
+    const idP= req.body.idP
+    const query = {idP}
+
+    HasOrth.findOneAndUpdate(query,hasOrthR,(err,orth) => {
+        if (err){
+          return res.send({
+              success: false,
+              message: err
+            });
+        }
+    
+  if(!orth){
+      return res.send({
+          success: false,
+          message: "!HasOrth",
+        });
+  }else{
+
+    newUser = new User({
+      _id  : req.body.idP,
+      hasOrtho : "true"
+    
+    });
+    let _id  = req.body.idP;
+    let query1 = {_id}
+    console.log(query1);
+    User.findOneAndUpdate( query1,newUser,(err, user)=>{
+  
+     if (err) {
+       console.log(err)
+      return res.send({
+        success: false,
+        user,
+        message: 'Error while reteriving the user'
+      });
+    }
+  
+
+    return res.send({
+      success: true,
+      message: "!HasOrth is updated",
+      hasOrth : orth,
+      user
+    });
+
+  });
+
+  }
+});
+});
+
+
   module.exports = router;
   
