@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const Done = require('../models/done');
 
 const Stutter = require('../models/stutter');
 
@@ -27,10 +28,36 @@ router.post('/stutter', (req, res, next) => {
           message: 'Error, Invalid Stutter'
         });
       }
+      let newDone = new Done({
+        idUser: req.body.idUser,
+        idExercice: "60bbc61c8104a60015f958ec",
+        exerciceName:"stutterless",
+        idToDo:Stutter._id,
+        score: req.body.progress * 5,
+       // iteration:req.body.iteration
+    });
+    newDone.save((err, done) => {
+      if (err) {
+      //  console.log(err);
+        return res.send({
+          success: false,
+          message: 'Failed to save the done'
+        });
+      }
+      if (!done) {
+        return res.send({
+          success: false,
+          message: 'Error, Invalid done'
+        });
+      }
       res.send({
+        done,
         success: true,
         message: 'Stutter Saved',
       });
+    });
+
+      
     });
   });
   

@@ -14,7 +14,8 @@ const UserSchema = mongoose.Schema({
   code :String,
   idInv:String,
   score:String,
-  hasOrtho:String
+  hasOrtho:String,
+
 });
 
 

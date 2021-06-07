@@ -307,7 +307,7 @@ router.post('/getByIdP', (req, res, next) => {
 router.post('/updateName', (req, res, next) => {
   console.log(req.body)
   const hasOrthR =({
-      idP : req.body.idP,
+      idP : req.body._id,
       nameP :req.body.nameP,
 
     });
@@ -316,7 +316,7 @@ router.post('/updateName', (req, res, next) => {
 
     HasOrth.findOneAndUpdate(query,hasOrthR,(err,orth) => {
         if (err){
-          return res.send({
+         return res.send({
               success: false,
               message: err
             });

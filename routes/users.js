@@ -6,6 +6,8 @@ const passport = require('passport');
 const { use } = require('passport');
 
 const bcrypt = require('bcryptjs');
+const bodyParser = require("body-parser");
+
 
 
 //Login
@@ -487,6 +489,7 @@ router.post('/updatePwd', (req, res, next) => {
     });
   
 });
+
 
 
 
