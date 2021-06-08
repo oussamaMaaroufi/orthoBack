@@ -10,7 +10,8 @@ router.post('/add', (req, res, next) => {
       name: req.body.name,
       category: req.body.category,
       type:req.body.type,
-      niveau: req.body.niveau
+      niveau: req.body.niveau,
+      score:req.body.score
 
     });
     
@@ -84,13 +85,14 @@ router.post('/add', (req, res, next) => {
         name: req.body.name,
         category: req.body.category,
         type:req.body.type,
-        niveau: req.body.niveau
+        niveau: req.body.niveau,
+        score:req.body.score
   
       });
       const IdUser= req.body.IdUser;
       const query = {id}
 
-      Exercice.update(query,ExerciceR,err => {
+      Exercice.updateOne(query,ExerciceR,err => {
           if (err){
             return res.send({
                 success: false,

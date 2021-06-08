@@ -9,18 +9,26 @@ const UserSchema = mongoose.Schema({
   name: String,
   email: { type: String, required: true },
   type: { type: String, required: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  phone: String,
+  code :String,
+  idInv:String,
+  score:String,
+  hasOrtho:String,
+
 });
+
 
 
 
 //Pre Save Hook. Used to hash the password
 UserSchema.pre('save', function(next) {
 
+  console.log(this.password)
      if (!this.isModified('password'))  {
        return next();
      }
-
+     console.log(this.password)
     //Generate Salt Value
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
@@ -31,6 +39,7 @@ UserSchema.pre('save', function(next) {
         if (err) {
           return next(err);
         }
+        console.log(hash)
         this.password = hash;
         next();
       });
@@ -38,6 +47,8 @@ UserSchema.pre('save', function(next) {
     });
 
 });
+
+
 
 //Custom method to check the password correct when login
 UserSchema.methods.isPasswordMatch = function(plainPassword, hashed, callback) {
